@@ -17,13 +17,13 @@ public class CollectorController {
 
     @PostMapping("/sensors")
     public void createSensorEvent(@Valid @RequestBody SensorEvent event) {
-        log.trace("Пришел POST запрос /events/sensors с телом: {}", event);
+        log.info("Пришел POST запрос /events/sensors с телом: {}", event);
         collectorService.loadSensorEvent(event);
     }
 
     @PostMapping("/hubs")
     public void createHubEvent(@Valid @RequestBody HubEvent event) {
-        log.trace("Пришел POST запрос /events/hubs с телом: {}", event);
+        log.info("Пришел POST запрос /events/hubs с телом: {}", event);
         collectorService.loadHubEvent(event);
     }
 }

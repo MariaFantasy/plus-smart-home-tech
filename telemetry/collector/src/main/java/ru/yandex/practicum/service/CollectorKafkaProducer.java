@@ -1,5 +1,6 @@
 package ru.yandex.practicum.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -9,12 +10,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Properties;
 
+@Slf4j
 @Service
 public class CollectorKafkaProducer {
     private static final String BOOTSTRAP_SERVERS_CONFIG = "localhost:9092";
     private static final String KEY_SERIALIZER_CLASS_CONFIG = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String VALUE_SERIALIZER_CLASS_CONFIG = "ru.yandex.practicum.mapper.GeneralAvroSerializer";
-    private final Producer<Void, SpecificRecordBase> producer;
+    private final Producer<String, SpecificRecordBase> producer;
 
     public CollectorKafkaProducer() {
         Properties config = new Properties();
@@ -25,7 +27,8 @@ public class CollectorKafkaProducer {
     }
 
     public void send(SpecificRecordBase event, String topic) {
-        ProducerRecord<Void, SpecificRecordBase> record = new ProducerRecord<>(topic, event);
+        ProducerRecord<String, SpecificRecordBase> record = new ProducerRecord<>(topic, event);
+        log.info("В кафку {} отправлено событие с телом {}", topic, event);
         producer.send(record);
     }
 
