@@ -14,8 +14,8 @@ public class CollectorServiceImpl implements CollectorService {
     private final SensorEventMapper sensorEventMapper;
     private final HubEventMapper hubEventMapper;
 
-    private static final String SENSOR_KAFKA_TOPIC = "telemetry.sensor.v1";
-    private static final String HUB_KAFKA_TOPIC = "telemetry.hub.v1";
+    private static final String SENSOR_KAFKA_TOPIC = "telemetry.sensors.v1";
+    private static final String HUB_KAFKA_TOPIC = "telemetry.hubs.v1";
 
     public void loadSensorEvent(SensorEvent sensorEvent) {
         kafkaProducer.send(sensorEventMapper.mapToAvro(sensorEvent), SENSOR_KAFKA_TOPIC);
