@@ -1,33 +1,30 @@
 package ru.yandex.practicum.mapper;
 
+import org.apache.avro.specific.SpecificRecordBase;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.SubclassMapping;
 import ru.yandex.practicum.dto.hub.HubEvent;
-import ru.yandex.practicum.dto.sensor.*;
 import ru.yandex.practicum.kafka.telemetry.event.*;
+import ru.yandex.practicum.dto.hub.device.*;
+import ru.yandex.practicum.dto.hub.scenario.*;
 
 @Mapper(componentModel = "spring")
 public interface HubEventMapper {
-//    @Mapping(target = "id", source = "id") //, qualifiedByName = "mapClass")
-    SensorEventAvro mapToAvro(HubEvent event);
+    DeviceAddedEventAvro mapToAvro(DeviceAddedEvent event);
+    DeviceRemovedEventAvro mapToAvro(DeviceRemovedEvent event);
+    ScenarioAddedEventAvro mapToAvro(ScenarioAddedEvent event);
+    ScenarioRemovedEventAvro mapToAvro(ScenarioRemovedEvent event);
 
-//    @Named("mapClass")
-//    @SubclassMapping(source = ClimateSensorEvent.class, target = ClimateSensorAvro.class)
-//    @SubclassMapping(source = LightSensorEvent.class, target = LightSensorAvro.class)
-//    @SubclassMapping(source = MotionSensorEvent.class, target = MotionSensorAvro.class)
-//    @SubclassMapping(source = SwitchSensorEvent.class, target = SwitchSensorAvro.class)
-//    @SubclassMapping(source = TemperatureSensorEvent.class, target = TemperatureSensorAvro.class)
-//    Object mapClass(SensorEvent event);
-//
-//    ClimateSensorAvro mapToAvro(ClimateSensorEvent event);
-//
-//    LightSensorAvro mapToAvro(LightSensorEvent event);
-//
-//    MotionSensorAvro mapToAvro(MotionSensorEvent event);
-//
-//    SwitchSensorAvro mapToAvro(SwitchSensorEvent event);
-//
-//    TemperatureSensorAvro mapToAvro(TemperatureSensorEvent event);
+    default SpecificRecordBase mapToAvro(HubEvent event) {
+        if (event instanceof DeviceAddedEvent) {
+            return mapToAvro((DeviceAddedEvent) event);
+        } else if (event instanceof DeviceRemovedEvent) {
+            return mapToAvro((DeviceRemovedEvent) event);
+        } else if (event instanceof ScenarioAddedEvent) {
+            return mapToAvro((ScenarioAddedEvent) event);
+        } else if (event instanceof ScenarioRemovedEvent) {
+            return mapToAvro((ScenarioRemovedEvent) event);
+        } else {
+            throw new IllegalArgumentException("Unknown HubEvent subclass: " + event.getClass());
+        }
+    }
 }
