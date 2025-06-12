@@ -1,5 +1,6 @@
 package ru.yandex.practicum.mapper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.io.BinaryEncoder;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.io.EncoderFactory;
@@ -11,6 +12,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+@Slf4j
 public class GeneralAvroSerializer implements Serializer<SpecificRecordBase> {
     private final EncoderFactory encoderFactory = EncoderFactory.get();
     private BinaryEncoder encoder;
@@ -21,6 +23,7 @@ public class GeneralAvroSerializer implements Serializer<SpecificRecordBase> {
                 DatumWriter<SpecificRecordBase> writer = new SpecificDatumWriter<>(data.getSchema());
                 encoder = encoderFactory.binaryEncoder(out, encoder);
                 writer.write(data, encoder);
+                log.info("Записалось {}", data);
                 encoder.flush();
             }
             return out.toByteArray();
