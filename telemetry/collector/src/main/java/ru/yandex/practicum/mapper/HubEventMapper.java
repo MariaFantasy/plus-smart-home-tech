@@ -28,7 +28,7 @@ public interface HubEventMapper {
             throw new IllegalArgumentException("Unknown HubEvent subclass: " + event.getClass());
         }
 
-        return SensorEventAvro.newBuilder()
+        return HubEventAvro.newBuilder()
                 .setHubId(event.getHubId())
                 .setTimestamp(event.getTimestamp())
                 .setPayload(payload)
