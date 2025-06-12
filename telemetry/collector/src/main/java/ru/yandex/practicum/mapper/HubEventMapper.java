@@ -15,16 +15,23 @@ public interface HubEventMapper {
     ScenarioRemovedEventAvro mapToAvro(ScenarioRemovedEvent event);
 
     default SpecificRecordBase mapToAvro(HubEvent event) {
+        SpecificRecordBase payload;
         if (event instanceof DeviceAddedEvent) {
-            return mapToAvro((DeviceAddedEvent) event);
+            payload = mapToAvro((DeviceAddedEvent) event);
         } else if (event instanceof DeviceRemovedEvent) {
-            return mapToAvro((DeviceRemovedEvent) event);
+            payload = mapToAvro((DeviceRemovedEvent) event);
         } else if (event instanceof ScenarioAddedEvent) {
-            return mapToAvro((ScenarioAddedEvent) event);
+            payload = mapToAvro((ScenarioAddedEvent) event);
         } else if (event instanceof ScenarioRemovedEvent) {
-            return mapToAvro((ScenarioRemovedEvent) event);
+            payload = mapToAvro((ScenarioRemovedEvent) event);
         } else {
             throw new IllegalArgumentException("Unknown HubEvent subclass: " + event.getClass());
         }
+
+        return SensorEventAvro.newBuilder()
+                .setHubId(event.getHubId())
+                .setTimestamp(event.getTimestamp())
+                .setPayload(payload)
+                .build();
     }
 }

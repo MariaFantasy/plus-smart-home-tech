@@ -24,6 +24,7 @@ public class GeneralAvroSerializer implements Serializer<SpecificRecordBase> {
                 encoder = encoderFactory.binaryEncoder(out, encoder);
                 writer.write(data, encoder);
                 log.info("Записалось {}", data);
+                log.info("Класс {}", data.getClass());
                 encoder.flush();
             }
             return out.toByteArray();
