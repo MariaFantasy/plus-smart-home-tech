@@ -6,23 +6,22 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.KafkaProperties;
 
 import java.util.Properties;
 
 @Slf4j
 @Service
 public class CollectorKafkaProducer {
-    private static final String BOOTSTRAP_SERVERS_CONFIG = "localhost:9092";
-    private static final String KEY_SERIALIZER_CLASS_CONFIG = "org.apache.kafka.common.serialization.StringSerializer";
-    private static final String VALUE_SERIALIZER_CLASS_CONFIG = "ru.yandex.practicum.mapper.GeneralAvroSerializer";
     private final Producer<String, SpecificRecordBase> producer;
 
-    public CollectorKafkaProducer() {
+    public CollectorKafkaProducer(KafkaProperties kafkaProperties) {
         Properties config = new Properties();
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
-        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, KEY_SERIALIZER_CLASS_CONFIG);
-        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, VALUE_SERIALIZER_CLASS_CONFIG);
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, kafkaProperties.getKeySerializerClass());
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, kafkaProperties.getValueSerializerClass());
         producer = new KafkaProducer<>(config);
     }
 
