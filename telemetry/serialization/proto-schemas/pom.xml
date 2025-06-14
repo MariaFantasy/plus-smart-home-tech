@@ -40,39 +40,25 @@
             </plugin>
 
             <plugin>
-<!--                <groupId>io.github.ascopes</groupId>-->
-<!--                <artifactId>protobuf-maven-plugin</artifactId>-->
-
-<!--                <configuration>-->
-<!--                    <protocVersion>${protobuf.version}</protocVersion>-->
-
-<!--                    <binaryMavenPlugins>-->
-<!--                        <binaryMavenPlugin>-->
-<!--                            <groupId>io.grpc</groupId>-->
-<!--                            <artifactId>protoc-gen-grpc-java</artifactId>-->
-<!--                            <version>${grpc.version}</version>-->
-<!--                        </binaryMavenPlugin>-->
-<!--                    </binaryMavenPlugins>-->
-<!--                </configuration>-->
-
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>generate</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-
-                <groupId>org.xolstice.maven.plugins</groupId>
+                <groupId>io.github.ascopes</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
+
                 <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:3.24.4:exe:${os.detected.classifier}</protocArtifact>
+                    <protocVersion>${protobuf.version}</protocVersion>
+
+                    <binaryMavenPlugins>
+                        <binaryMavenPlugin>
+                            <groupId>io.grpc</groupId>
+                            <artifactId>protoc-gen-grpc-java</artifactId>
+                            <version>${grpc.version}</version>
+                        </binaryMavenPlugin>
+                    </binaryMavenPlugins>
                 </configuration>
+
                 <executions>
                     <execution>
                         <goals>
-                            <goal>compile</goal>
+                            <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
