@@ -24,10 +24,10 @@ public class AggregatorKafkaConsumer {
     public AggregatorKafkaConsumer(KafkaProperties kafkaProperties) {
         Properties config = new Properties();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
-        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.VoidDeserializer");
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getKeyDeserializerClass());
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getValueDeserializerClass());
         consumer = new KafkaConsumer<>(config);
-        List<String> topics = List.of(kafkaProperties.getSnapshotKafkaTopic());
+        List<String> topics = List.of(kafkaProperties.getSensorKafkaTopic());
         consumer.subscribe(topics);
     }
 
