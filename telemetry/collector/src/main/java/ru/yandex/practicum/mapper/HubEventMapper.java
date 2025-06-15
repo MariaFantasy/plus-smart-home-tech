@@ -1,9 +1,7 @@
 package ru.yandex.practicum.mapper;
 
 import org.apache.avro.specific.SpecificRecordBase;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ValueMapping;
+import org.mapstruct.*;
 import ru.yandex.practicum.dto.hub.HubEvent;
 import ru.yandex.practicum.grpc.telemetry.event.*;
 import ru.yandex.practicum.kafka.telemetry.event.*;
@@ -44,15 +42,19 @@ public interface HubEventMapper {
     @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
     DeviceTypeAvro mapToAvro(DeviceTypeProto proto);
     @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
-    ConditionOperationAvro mapToAvro(ConditionOperationProto proto);
+    ScenarioConditionAvro mapToAvro(ScenarioConditionProto proto);
     @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
     DeviceActionAvro mapToAvro(DeviceActionProto proto);
 
-    List<ConditionOperationAvro> mapConditions(List<ConditionOperationProto> protoList);
+    @Named("mapConditions")
+    List<ScenarioConditionAvro> mapConditions(List<ScenarioConditionProto> protoList);
+    @Named("mapActions")
     List<DeviceActionAvro> mapActions(List<DeviceActionProto> protoList);
 
     DeviceAddedEventAvro mapToAvro(DeviceAddedEventProto event);
     DeviceRemovedEventAvro mapToAvro(DeviceRemovedEventProto event);
+    @Mapping(source = "conditionsList", target = "conditions", qualifiedByName = "mapConditions")
+    @Mapping(source = "actionsList", target = "actions", qualifiedByName = "mapActions")
     ScenarioAddedEventAvro mapToAvro(ScenarioAddedEventProto event);
     ScenarioRemovedEventAvro mapToAvro(ScenarioRemovedEventProto event);
 
