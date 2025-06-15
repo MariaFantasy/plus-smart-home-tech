@@ -29,7 +29,7 @@ enum DeviceTypeProto {
 
 message DeviceAddedEventProto {
   string id = 1;        // идентификатор устройства
-  DeviceTypeProto type = 2; // тип устройства
+  DeviceTypeProto deviceType = 2; // тип устройства
 }
 
 message DeviceRemovedEventProto {
@@ -77,8 +77,8 @@ message DeviceActionProto {
 
 message ScenarioAddedEventProto {
   string name = 1; // название сценария, уникальное в рамках хаба
-  repeated ScenarioConditionProto condition = 2; // набор условий активации сценария
-  repeated DeviceActionProto action = 3; // набор действий при активации сценария
+  repeated ScenarioConditionProto conditions = 2; // набор условий активации сценария
+  repeated DeviceActionProto actions = 3; // набор действий при активации сценария
 }
 
 message ScenarioRemovedEventProto {
