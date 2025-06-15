@@ -42,6 +42,7 @@ public interface HubEventMapper {
     @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
     DeviceTypeAvro mapToAvro(DeviceTypeProto proto);
     @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
+    @Mapping(target = "value", expression = "java(proto.getValueCase() == ScenarioConditionProto.ValueCase.BOOL_VALUE ? proto.getBoolValue() : proto.getIntValue())")
     ScenarioConditionAvro mapToAvro(ScenarioConditionProto proto);
     @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
     DeviceActionAvro mapToAvro(DeviceActionProto proto);
