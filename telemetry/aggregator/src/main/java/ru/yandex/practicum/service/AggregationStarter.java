@@ -32,6 +32,8 @@ public class AggregationStarter {
      */
     public void start() {
         try {
+            consumer.subscribe(kafkaProperties.getSensorKafkaTopic());
+
             while (true) {
                 consumer.read(this::handleRecord);
             }

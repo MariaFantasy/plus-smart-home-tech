@@ -26,7 +26,10 @@ public class AggregatorKafkaConsumer {
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getKeyDeserializerClass());
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getValueDeserializerClass());
         consumer = new KafkaConsumer<>(config);
-        List<String> topics = List.of(kafkaProperties.getSensorKafkaTopic());
+    }
+
+    public void subscribe(String topic) {
+        List<String> topics = List.of(topic);
         consumer.subscribe(topics);
     }
 
