@@ -11,6 +11,11 @@ public class KafkaProperties {
     private String bootstrapServers;
     private String keySerializerClass;
     private String valueSerializerClass;
-    private String sensorKafkaTopic;
-    private String hubKafkaTopic;
+    private Topic topic;
+
+    @Data
+    public static class Topic {
+        private String sensor;
+        private String hub;
+    }
 }

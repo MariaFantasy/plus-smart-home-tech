@@ -17,10 +17,10 @@ public class CollectorServiceImpl implements CollectorService {
     private final KafkaProperties kafkaProperties;
 
     public void loadSensorEvent(SensorEvent sensorEvent) {
-        kafkaProducer.send(sensorEventMapper.mapToAvro(sensorEvent), kafkaProperties.getSensorKafkaTopic());
+        kafkaProducer.send(sensorEventMapper.mapToAvro(sensorEvent), kafkaProperties.getTopic().getSensor());
     }
 
     public void loadHubEvent(HubEvent hubEvent) {
-        kafkaProducer.send(hubEventMapper.mapToAvro(hubEvent), kafkaProperties.getHubKafkaTopic());
+        kafkaProducer.send(hubEventMapper.mapToAvro(hubEvent), kafkaProperties.getTopic().getHub());
     }
 }
