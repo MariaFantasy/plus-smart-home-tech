@@ -9,7 +9,7 @@ kafka:
   value_deserializer_class: ru.yandex.practicum.mapper.SensorEventDeserializer
   aggregator_producer_client: AggregatorProducer
   aggregator_consumer_client: AggregatorConsumer
-  aggregator_consumer_group: aggregator.group.id
+  aggregator_consumer_group: aggregator-group
   topic:
     sensor: telemetry.sensors.v1
     snapshot: telemetry.snapshots.v1
