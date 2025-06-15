@@ -29,7 +29,7 @@ enum DeviceTypeProto {
 
 message DeviceAddedEventProto {
   string id = 1;        // идентификатор устройства
-  DeviceTypeProto type = 2; // тип устройства
+  DeviceTypeProto deviceType = 2; // тип устройства
 }
 
 message DeviceRemovedEventProto {
