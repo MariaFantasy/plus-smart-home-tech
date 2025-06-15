@@ -3,9 +3,12 @@ package ru.yandex.practicum.mapper;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.mapstruct.Mapper;
 import ru.yandex.practicum.dto.hub.HubEvent;
+import ru.yandex.practicum.grpc.telemetry.event.*;
 import ru.yandex.practicum.kafka.telemetry.event.*;
 import ru.yandex.practicum.dto.hub.device.*;
 import ru.yandex.practicum.dto.hub.scenario.*;
+
+import java.time.Instant;
 
 @Mapper(componentModel = "spring")
 public interface HubEventMapper {
@@ -31,6 +34,32 @@ public interface HubEventMapper {
         return HubEventAvro.newBuilder()
                 .setHubId(event.getHubId())
                 .setTimestamp(event.getTimestamp())
+                .setPayload(payload)
+                .build();
+    }
+
+    DeviceAddedEventAvro mapToAvro(DeviceAddedEventProto event);
+    DeviceRemovedEventAvro mapToAvro(DeviceRemovedEventProto event);
+    ScenarioAddedEventAvro mapToAvro(ScenarioAddedEventProto event);
+    ScenarioRemovedEventAvro mapToAvro(ScenarioRemovedEventProto event);
+
+    default SpecificRecordBase mapToAvro(HubEventProto event) {
+        SpecificRecordBase payload;
+        if (event.hasDeviceAdded()) {
+            payload = mapToAvro(event.getDeviceAdded());
+        } else if (event.hasDeviceRemoved()) {
+            payload = mapToAvro(event.getDeviceRemoved());
+        } else if (event.hasScenarioAdded()) {
+            payload = mapToAvro(event.getScenarioAdded());
+        } else if (event.hasScenarioRemoved()) {
+            payload = mapToAvro(event.getScenarioRemoved());
+        } else {
+            throw new IllegalArgumentException("Unknown HubEvent subclass: " + event.getClass());
+        }
+
+        return HubEventAvro.newBuilder()
+                .setHubId(event.getHubId())
+                .setTimestamp(Instant.ofEpochSecond(event.getTimestamp().getSeconds(), event.getTimestamp().getNanos()))
                 .setPayload(payload)
                 .build();
     }
