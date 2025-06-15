@@ -32,8 +32,8 @@ public class AggregationStarter {
      */
     public void start() {
         try {
-            log.info("Подписка на топик: {}", kafkaProperties.getSensorKafkaTopic());
-            consumer.subscribe(kafkaProperties.getSensorKafkaTopic());
+            log.info("Подписка на топик: {}", kafkaProperties.getTopic().getSensor());
+            consumer.subscribe(kafkaProperties.getTopic().getSensor());
 
             while (true) {
                 consumer.read(this::handleRecord);
@@ -91,6 +91,6 @@ public class AggregationStarter {
 
     public void handleRecord(SensorEventAvro avro) {
         Optional<SensorsSnapshotAvro> snapshotAvro = updateState(avro);
-        snapshotAvro.ifPresent(sensorsSnapshotAvro -> producer.send(sensorsSnapshotAvro, kafkaProperties.getSnapshotKafkaTopic()));
+        snapshotAvro.ifPresent(sensorsSnapshotAvro -> producer.send(sensorsSnapshotAvro, kafkaProperties.getTopic().getSnapshot()));
     }
 }

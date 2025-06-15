@@ -13,6 +13,11 @@ public class KafkaProperties {
     private String valueSerializerClass;
     private String keyDeserializerClass;
     private String valueDeserializerClass;
-    private String sensorKafkaTopic;
-    private String snapshotKafkaTopic;
+    private Topic topic;
+
+    @Data
+    public static class Topic {
+        private String sensor;
+        private String snapshot;
+    }
 }
