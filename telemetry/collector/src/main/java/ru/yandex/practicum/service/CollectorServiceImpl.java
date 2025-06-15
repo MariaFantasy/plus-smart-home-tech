@@ -41,11 +41,7 @@ public class CollectorServiceImpl implements CollectorService {
 
     public void loadHubEvent(HubEventProto hubEvent) {
         log.info("Start hub event save {}", hubEvent);
-        log.info("hasDeviceAdded: {}", hubEvent.hasDeviceAdded());
-        log.info("DeviceAdded: {}", hubEvent.getDeviceAdded());
-        SpecificRecordBase mappedValue = hubEventMapper.mapToAvro(hubEvent);
-        log.info("Mapping: {}", mappedValue);
-        kafkaProducer.send(mappedValue, kafkaProperties.getTopic().getHub());
+        kafkaProducer.send(hubEventMapper.mapToAvro(hubEvent), kafkaProperties.getTopic().getHub());
         log.info("Success hub event save {}", hubEvent);
     }
 }
