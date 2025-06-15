@@ -2,6 +2,7 @@ package ru.yandex.practicum.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.avro.specific.SpecificRecordBase;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.KafkaProperties;
 import ru.yandex.practicum.dto.hub.HubEvent;
@@ -40,7 +41,9 @@ public class CollectorServiceImpl implements CollectorService {
 
     public void loadHubEvent(HubEventProto hubEvent) {
         log.info("Start hub event save {}", hubEvent);
-        kafkaProducer.send(hubEventMapper.mapToAvro(hubEvent), kafkaProperties.getTopic().getHub());
+        SpecificRecordBase mappedValue = hubEventMapper.mapToAvro(hubEvent);
+        log.info("Mapping: {}", mappedValue);
+        kafkaProducer.send(mappedValue, kafkaProperties.getTopic().getHub());
         log.info("Success hub event save {}", hubEvent);
     }
 }
