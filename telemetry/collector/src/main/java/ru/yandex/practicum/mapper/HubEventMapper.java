@@ -11,6 +11,7 @@ import ru.yandex.practicum.dto.hub.device.*;
 import ru.yandex.practicum.dto.hub.scenario.*;
 
 import java.time.Instant;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface HubEventMapper {
@@ -46,6 +47,9 @@ public interface HubEventMapper {
     ConditionOperationAvro mapToAvro(ConditionOperationProto proto);
     @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
     DeviceActionAvro mapToAvro(DeviceActionProto proto);
+
+    List<ConditionOperationAvro> mapConditions(List<ConditionOperationProto> protoList);
+    List<DeviceActionAvro> mapActions(List<DeviceActionProto> protoList);
 
     DeviceAddedEventAvro mapToAvro(DeviceAddedEventProto event);
     DeviceRemovedEventAvro mapToAvro(DeviceRemovedEventProto event);
