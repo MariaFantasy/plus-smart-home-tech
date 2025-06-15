@@ -42,6 +42,8 @@ public interface HubEventMapper {
 
     @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
     DeviceTypeAvro mapToAvro(DeviceTypeProto proto);
+    ConditionOperationAvro mapToAvro(ConditionOperationProto proto);
+    DeviceActionAvro mapToAvro(DeviceActionProto proto);
 
     DeviceAddedEventAvro mapToAvro(DeviceAddedEventProto event);
     DeviceRemovedEventAvro mapToAvro(DeviceRemovedEventProto event);
