@@ -13,6 +13,7 @@ public class KafkaProperties {
     private String valueSerializerClass;
     private String keyDeserializerClass;
     private String valueDeserializerClass;
+    private String aggregatorProducerClient;
     private String aggregatorConsumerClient;
     private String aggregatorConsumerGroup;
     private Topic topic;

@@ -21,6 +21,7 @@ public class AggregatorKafkaProducer {
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, kafkaProperties.getKeySerializerClass());
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, kafkaProperties.getValueSerializerClass());
+        config.put(ProducerConfig.CLIENT_ID_CONFIG, kafkaProperties.getAggregatorProducerClient());
         producer = new KafkaProducer<>(config);
     }
 
