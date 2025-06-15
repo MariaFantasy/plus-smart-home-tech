@@ -32,6 +32,7 @@ public class AggregationStarter {
      */
     public void start() {
         try {
+            log.info("Подписка на топик: {}", kafkaProperties.getSensorKafkaTopic());
             consumer.subscribe(kafkaProperties.getSensorKafkaTopic());
 
             while (true) {
