@@ -3,7 +3,6 @@ package ru.yandex.practicum.service;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.errors.WakeupException;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.KafkaProperties;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
