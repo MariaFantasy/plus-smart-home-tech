@@ -25,6 +25,7 @@ public class AggregatorKafkaConsumer {
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getKeyDeserializerClass());
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getValueDeserializerClass());
+        config.put(ConsumerConfig.CLIENT_ID_CONFIG, kafkaProperties.getAggregatorConsumerClient());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getAggregatorConsumerGroup());
         consumer = new KafkaConsumer<>(config);
     }
