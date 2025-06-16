@@ -59,6 +59,7 @@ public class AggregationStarter {
     }
 
     public Optional<SensorsSnapshotAvro> updateState(SensorEventAvro event) {
+        log.info("Получен event {}", event);
         SensorsSnapshotAvro snapshot;
         if (snapshots.containsKey(event.getHubId())) {
             snapshot = snapshots.get(event.getHubId());
@@ -87,6 +88,7 @@ public class AggregationStarter {
         snapshot.getSensorsState().put(event.getId(), sensorStateAvro);
         snapshot.setTimestamp(event.getTimestamp());
         snapshots.put(event.getHubId(), snapshot);
+        log.info("Отправлен snapshot {}", snapshot);
         return Optional.of(snapshot);
     }
 
