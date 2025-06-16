@@ -61,6 +61,7 @@ public class SnapshotProcessor {
         if (sensorStates == null || sensorStates.isEmpty()) {
             return;
         }
+        log.info("Получены состояния {}", sensorStates);
         scenarios = scenarios.stream()
                 .filter(scenario -> checkConditions(scenario, sensorStates))
                 .toList();
