@@ -24,7 +24,6 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class SnapshotProcessor {
-    @Autowired
     @GrpcClient("hub-router")
     private HubRouterControllerGrpc.HubRouterControllerBlockingStub hubRouterClient;
 
