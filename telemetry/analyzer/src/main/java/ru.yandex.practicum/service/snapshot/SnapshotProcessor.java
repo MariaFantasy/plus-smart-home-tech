@@ -55,6 +55,7 @@ public class SnapshotProcessor {
     }
 
     public void handleRecord(SensorsSnapshotAvro avro) {
+        log.info("Получен snapshot {}", avro);
         List<Scenario> scenarios = scenarioRepository.findByHubId(avro.getHubId());
         Map<String, SensorStateAvro> sensorStates = avro.getSensorsState();
         scenarios = scenarios.stream()
@@ -62,6 +63,7 @@ public class SnapshotProcessor {
                 .toList();
 
         scenarios.forEach(this::handleActions);
+        log.info("Snapshot {} успешно отработан", avro);
     }
 
     private boolean checkConditions(Scenario scenario, Map<String, SensorStateAvro> sensorStates) {
@@ -105,6 +107,7 @@ public class SnapshotProcessor {
                     .setAction(actionProto)
                     .setTimestamp(timestamp)
                     .build();
+            log.info("Отправляю deviceActionRequest {}", request);
             hubRouterClient.handleDeviceAction(request);
         }
     }
