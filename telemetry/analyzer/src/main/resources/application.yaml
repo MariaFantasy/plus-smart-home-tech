@@ -1,0 +1,21 @@
+kafka:
+  bootstrap-servers: localhost:9092
+  key_deserializer_class: org.apache.kafka.common.serialization.StringSerializer
+  snapshot:
+    value_deserializer_class: ru.yandex.practicum.mapper.SnapshotDeserializer
+    consumer_client: AnalyzerSnapshotConsumer
+    consumer_group: analyzer-snapshot-group
+    topic: telemetry.snapshots.v1
+  hub:
+    value_deserializer_class: ru.yandex.practicum.mapper.HubEventDeserializer
+    consumer_client: AnalyzerHubConsumer
+    consumer_group: analyzer-hub-group
+    topic: telemetry.hubs.v1
+
+grpc:
+  client:
+    hub-router:
+      address: 'static://localhost:59090'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
