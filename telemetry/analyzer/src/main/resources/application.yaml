@@ -13,7 +13,7 @@ kafka:
     topic: telemetry.hubs.v1
 
 grpc:
-  client:
+  clients:
     hub-router:
       address: static://localhost:59090
       negotiationType: plaintext

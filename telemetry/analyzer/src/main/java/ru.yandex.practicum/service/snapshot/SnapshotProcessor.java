@@ -24,7 +24,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class SnapshotProcessor {
-    @GrpcClient("client.hub-router")
+    @GrpcClient("hub-router")
     private HubRouterControllerGrpc.HubRouterControllerBlockingStub hubRouterClient;
 
     private final KafkaProperties kafkaProperties;
