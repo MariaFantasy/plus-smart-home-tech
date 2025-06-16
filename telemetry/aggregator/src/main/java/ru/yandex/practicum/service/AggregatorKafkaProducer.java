@@ -28,6 +28,9 @@ public class AggregatorKafkaProducer {
 
     public void send(SpecificRecordBase event, String topic) {
         SensorsSnapshotAvro snapshotAvro = (SensorsSnapshotAvro) event;
+        ProducerRecord<String, SpecificRecordBase> example = new ProducerRecord<>(topic, null, snapshotAvro.getTimestamp().toEpochMilli(), snapshotAvro.getHubId(), snapshotAvro);
+        log.info("ProducerRecord: {}", example);
+        log.info("ProducerRecordValue: {}", example.value());
         producer.send(new ProducerRecord<>(topic, null, snapshotAvro.getTimestamp().toEpochMilli(), snapshotAvro.getHubId(), snapshotAvro));
         producer.flush();
         log.info("В кафку {} отправлено событие с телом {}", topic, event);
