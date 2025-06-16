@@ -14,7 +14,7 @@ kafka:
 
 grpc:
   client:
-    echo:
+    hub-router:
       address: 'static://localhost:59090'
       enableKeepAlive: true
       keepAliveWithoutCalls: true
