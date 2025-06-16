@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = { "id" })
 public class Sensor {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private String id;
 

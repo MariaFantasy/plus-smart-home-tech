@@ -55,6 +55,7 @@ public class HubEventProcessor implements Runnable {
             Sensor sensor = new Sensor();
             sensor.setId(deviceAvro.getId());
             sensor.setHubId(avro.getHubId());
+            log.info("Sensor: {}", sensor);
             sensorRepository.save(sensor);
         } else if (payload.getClass().equals(DeviceRemovedEventAvro.class)) {
             log.info("DeviceRemovedEvent");
