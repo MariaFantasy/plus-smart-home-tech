@@ -58,6 +58,9 @@ public class SnapshotProcessor {
         log.info("Получен snapshot {}", avro);
         List<Scenario> scenarios = scenarioRepository.findByHubId(avro.getHubId());
         Map<String, SensorStateAvro> sensorStates = avro.getSensorsState();
+        if (sensorStates == null || sensorStates.isEmpty()) {
+            return;
+        }
         scenarios = scenarios.stream()
                 .filter(scenario -> checkConditions(scenario, sensorStates))
                 .toList();
