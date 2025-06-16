@@ -42,15 +42,3 @@ CREATE TABLE IF NOT EXISTS scenario_actions (
     action_id BIGINT REFERENCES actions(id),
     PRIMARY KEY (scenario_id, action_id)
 );
-
--- создаём триггер, проверяющий, что «условие» связывает корректные сценарий и датчик
-CREATE OR REPLACE TRIGGER tr_bi_scenario_conditions_hub_id_check
-BEFORE INSERT ON scenario_conditions
-FOR EACH ROW
-EXECUTE FUNCTION check_hub_id();
-
--- создаём триггер, проверяющий, что «действие» связывает корректные сценарий и датчик
-CREATE OR REPLACE TRIGGER tr_bi_scenario_actions_hub_id_check
-BEFORE INSERT ON scenario_actions
-FOR EACH ROW
-EXECUTE FUNCTION check_hub_id();
