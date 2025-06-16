@@ -14,7 +14,7 @@ public class AnalyzerApp {
         ConfigurableApplicationContext context = SpringApplication.run(AnalyzerApp.class, args);
 
         final HubEventProcessor hubEventProcessor = context.getBean(HubEventProcessor.class);
-        final SnapshotProcessor snapshotProcessor = context.getBean(SnapshotProcessor.class);
+        SnapshotProcessor snapshotProcessor = context.getBean(SnapshotProcessor.class);
 
         // запускаем в отдельном потоке обработчик событий
         // от пользовательских хабов

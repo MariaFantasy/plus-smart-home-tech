@@ -24,6 +24,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class SnapshotProcessor {
+    @Autowired
     @GrpcClient("hub-router")
     private HubRouterControllerGrpc.HubRouterControllerBlockingStub hubRouterClient;
 
@@ -31,14 +32,6 @@ public class SnapshotProcessor {
     private final SnapshotKafkaConsumer consumer;
     private final ScenarioRepository scenarioRepository;
     private final ActionMapper actionMapper;
-
-    public SnapshotProcessor(HubRouterControllerGrpc.HubRouterControllerBlockingStub hubRouterClient, KafkaProperties kafkaProperties, SnapshotKafkaConsumer consumer, ScenarioRepository scenarioRepository, ActionMapper actionMapper) {
-        this.hubRouterClient = hubRouterClient;
-        this.kafkaProperties = kafkaProperties;
-        this.consumer = consumer;
-        this.scenarioRepository = scenarioRepository;
-        this.actionMapper = actionMapper;
-    }
 
     public void start() {
         try {
