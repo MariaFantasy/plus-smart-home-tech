@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS conditions (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     type VARCHAR,
     operation VARCHAR,
-    value INTEGER
+    value INTEGER,
+    sensor_id VARCHAR REFERENCES sensors(id)
 );
 
 -- создаём таблицу actions
