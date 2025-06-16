@@ -34,3 +34,8 @@ spring:
   sql:
     init:
       mode: always
+
+logging:
+  level:
+    net.devh: DEBUG
+    org.springframework: DEBUG
