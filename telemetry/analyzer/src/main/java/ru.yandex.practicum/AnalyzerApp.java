@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
-import ru.yandex.practicum.grpc.telemetry.hubrouter.HubRouterControllerGrpc;
+import org.springframework.core.env.Environment;
 import ru.yandex.practicum.service.hub.HubEventProcessor;
 import ru.yandex.practicum.service.snapshot.SnapshotProcessor;
 
@@ -16,10 +16,8 @@ public class AnalyzerApp {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(AnalyzerApp.class, args);
 
-        String[] grpcBean = context.getBeanNamesForType(HubRouterControllerGrpc.HubRouterControllerBlockingStub.class);
-        for (String name : grpcBean) {
-            log.info("GRPC: {}", name);
-        }
+        Environment env = context.getEnvironment();
+        log.info("GRPC: {}", env.getProperty("grpc.client.hub-router.address"));
 
         final HubEventProcessor hubEventProcessor = context.getBean(HubEventProcessor.class);
         SnapshotProcessor snapshotProcessor = context.getBean(SnapshotProcessor.class);
