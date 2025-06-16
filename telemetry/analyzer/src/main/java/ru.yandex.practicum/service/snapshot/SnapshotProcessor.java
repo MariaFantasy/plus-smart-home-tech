@@ -33,7 +33,7 @@ public class SnapshotProcessor {
 
     public void start() {
         try {
-            consumer.subscribe(kafkaProperties.getHub().getTopic());
+            consumer.subscribe(kafkaProperties.getSnapshot().getTopic());
 
             while (true) {
                 consumer.read(this::handleRecord);
