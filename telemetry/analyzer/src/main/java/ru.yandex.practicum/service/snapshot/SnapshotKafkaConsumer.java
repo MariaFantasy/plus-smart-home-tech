@@ -36,9 +36,9 @@ public class SnapshotKafkaConsumer {
 
     public void read(Consumer<SensorsSnapshotAvro> handleRecord) {
         ConsumerRecords<String, SensorsSnapshotAvro> records = consumer.poll(Duration.ofMillis(1000));
-        log.info("Полученные records {}", records);
         int count = 0;
         for (ConsumerRecord<String, SensorsSnapshotAvro> record : records) {
+            log.info("Полученные records {} : {} : {}", record.key(), record.value(), record.value().getSensorsState());
             handleRecord.accept(record.value());
             manageOffsets(record, count, consumer);
             count++;
