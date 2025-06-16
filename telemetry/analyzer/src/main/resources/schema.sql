@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS conditions (
 CREATE TABLE IF NOT EXISTS actions (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     type VARCHAR,
-    value INTEGER
+    value INTEGER,
+    sensor_id VARCHAR REFERENCES sensors(id)
 );
 
 -- создаём таблицу scenario_conditions, связывающую сценарий, датчик и условие активации сценария
