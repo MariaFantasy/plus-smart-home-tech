@@ -1,5 +1,6 @@
 package ru.yandex.practicum.mapper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.Schema;
 import org.apache.avro.io.BinaryDecoder;
 import org.apache.avro.io.DatumReader;
@@ -11,6 +12,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 import java.io.IOException;
 
+@Slf4j
 public class BaseAvroDeserializer<T extends SpecificRecordBase> implements Deserializer<T> {
     private final DecoderFactory decoderFactory;
     private final DatumReader<T> datumReader;
@@ -28,7 +30,9 @@ public class BaseAvroDeserializer<T extends SpecificRecordBase> implements Deser
     public T deserialize(String topic, byte[] data) {
         try {
             if (data != null) {
+                log.info("Data: {}", data);
                 BinaryDecoder decoder = decoderFactory.binaryDecoder(data, null);
+                log.info("Decoder: {}", decoder);
                 return datumReader.read(null, decoder);
             }
             return null;
