@@ -23,7 +23,8 @@ public class GeneralAvroSerializer implements Serializer<SpecificRecordBase> {
                 DatumWriter<SpecificRecordBase> writer = new SpecificDatumWriter<>(data.getSchema());
                 encoder = encoderFactory.binaryEncoder(out, encoder);
                 writer.write(data, encoder);
-                log.info("Записалось {}", data);
+                log.info("Записалось {}", out.toByteArray());
+                log.info("Записалось {}", out);
                 log.info("Класс {}", data.getClass());
                 encoder.flush();
             }
