@@ -8,6 +8,7 @@ import ru.yandex.practicum.model.Action;
 
 @Mapper(componentModel = "spring")
 public interface ActionMapper {
+    @Mapping(target = "sensorId", source = "sensor_id")
     DeviceActionProto mapToProto(Action action);
 
     @Mapping(target = "sensor.id", source = "sensorId")
