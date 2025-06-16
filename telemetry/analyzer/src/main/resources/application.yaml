@@ -13,9 +13,11 @@ kafka:
     topic: telemetry.hubs.v1
 
 grpc:
-  clients:
-    hub-router:
-      address: static://localhost:59090
+  client:
+    echo:
+      address: 'static://localhost:59090'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
       negotiationType: plaintext
 
 spring:
