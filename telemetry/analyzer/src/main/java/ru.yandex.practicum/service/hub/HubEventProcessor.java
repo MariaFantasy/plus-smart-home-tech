@@ -59,7 +59,7 @@ public class HubEventProcessor implements Runnable {
             sensorRepository.deleteById(((DeviceRemovedEventAvro) avro.getPayload()).getId());
         } else if (payload.getClass().equals(ScenarioAddedEventAvro.class)) {
             ScenarioAddedEventAvro scenarioAvro = (ScenarioAddedEventAvro) avro.getPayload();
-            Scenario scenario = scenarioMapper.mapFromAvro(scenarioAvro);
+            Scenario scenario = scenarioMapper.mapFromAvro(scenarioAvro, avro.getHubId());
             scenarioRepository.save(scenario);
         } else if (payload.getClass().equals(ScenarioRemovedEventAvro.class)) {
             scenarioRepository.deleteByName(((ScenarioRemovedEventAvro) avro.getPayload()).getName());
