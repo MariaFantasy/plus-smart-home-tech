@@ -77,6 +77,24 @@ public class SnapshotProcessor {
     }
 
     private boolean checkCondition(Condition condition, SensorStateAvro sensorState) {
+        if (condition == null) {
+            return false;
+        }
+        if (condition.getType() == null) {
+            return false;
+        }
+        if (condition.getOperation() == null) {
+            return false;
+        }
+        if (condition.getValue() == null) {
+            return false;
+        }
+        if (sensorState == null) {
+            return false;
+        }
+        if (sensorState.getData() == null) {
+            return false;
+        }
         Integer currentValue = switch (condition.getType()) {
             case ScenarioConditionType.MOTION -> ((MotionSensorAvro) sensorState.getData()).getMotion() ? 1 : 0;
             case ScenarioConditionType.LUMINOSITY -> ((LightSensorAvro) sensorState.getData()).getLuminosity();
