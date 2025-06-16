@@ -4,7 +4,7 @@ server:
 kafka:
   bootstrap-servers: localhost:9092
   key_serializer_class: org.apache.kafka.common.serialization.StringSerializer
-  value_serializer_class: io.confluent.kafka.serializers.KafkaAvroSerializer
+  value_serializer_class: ru.yandex.practicum.mapper.GeneralAvroSerializer
   key_deserializer_class: org.apache.kafka.common.serialization.StringDeserializer
   value_deserializer_class: ru.yandex.practicum.mapper.SensorEventDeserializer
   aggregator_producer_client: AggregatorProducer

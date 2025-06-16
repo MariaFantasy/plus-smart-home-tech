@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.KafkaProperties;
+import ru.yandex.practicum.kafka.telemetry.event.SensorsSnapshotAvro;
 
 import java.util.Properties;
 
@@ -26,9 +27,9 @@ public class AggregatorKafkaProducer {
     }
 
     public void send(SpecificRecordBase event, String topic) {
-        ProducerRecord<String, SpecificRecordBase> record = new ProducerRecord<>(topic, event);
+        SensorsSnapshotAvro snapshotAvro = (SensorsSnapshotAvro) event;
+        producer.send(new ProducerRecord<>(topic, null, snapshotAvro.getTimestamp().toEpochMilli(), snapshotAvro.getHubId(), snapshotAvro));
         log.info("В кафку {} отправлено событие с телом {}", topic, event);
-        producer.send(record);
     }
 
     public void flush() {

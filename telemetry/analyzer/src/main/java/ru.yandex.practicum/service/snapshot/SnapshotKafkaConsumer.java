@@ -26,6 +26,7 @@ public class SnapshotKafkaConsumer {
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getSnapshot().getValueDeserializerClass());
         config.put(ConsumerConfig.CLIENT_ID_CONFIG, kafkaProperties.getSnapshot().getConsumerClient());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getSnapshot().getConsumerGroup());
+        log.info("Value deserializer class: {}", kafkaProperties.getSnapshot().getValueDeserializerClass());
         consumer = new KafkaConsumer<>(config);
     }
 
