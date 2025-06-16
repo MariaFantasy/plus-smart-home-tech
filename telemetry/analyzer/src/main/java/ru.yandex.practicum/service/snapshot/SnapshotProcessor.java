@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.apache.kafka.common.errors.WakeupException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.KafkaProperties;
 import ru.yandex.practicum.grpc.telemetry.event.DeviceActionProto;
@@ -30,6 +31,14 @@ public class SnapshotProcessor {
     private final SnapshotKafkaConsumer consumer;
     private final ScenarioRepository scenarioRepository;
     private final ActionMapper actionMapper;
+
+    public SnapshotProcessor(HubRouterControllerGrpc.HubRouterControllerBlockingStub hubRouterClient, KafkaProperties kafkaProperties, SnapshotKafkaConsumer consumer, ScenarioRepository scenarioRepository, ActionMapper actionMapper) {
+        this.hubRouterClient = hubRouterClient;
+        this.kafkaProperties = kafkaProperties;
+        this.consumer = consumer;
+        this.scenarioRepository = scenarioRepository;
+        this.actionMapper = actionMapper;
+    }
 
     public void start() {
         try {
