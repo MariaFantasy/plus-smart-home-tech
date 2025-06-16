@@ -36,6 +36,7 @@ public class SnapshotKafkaConsumer {
 
     public void read(Consumer<SensorsSnapshotAvro> handleRecord) {
         ConsumerRecords<String, SensorsSnapshotAvro> records = consumer.poll(Duration.ofMillis(1000));
+        log.info("Полученные records {}", records);
         int count = 0;
         for (ConsumerRecord<String, SensorsSnapshotAvro> record : records) {
             handleRecord.accept(record.value());
