@@ -34,6 +34,7 @@ public class HubEventProcessor implements Runnable {
 
         } catch (WakeupException ignored) {
             // игнорируем - закрываем консьюмер и продюсер в блоке finally
+            log.info("Чтение топика {} остановлено.", kafkaProperties.getHub().getTopic());
         } catch (Exception e) {
             log.error("Ошибка во время обработки событий от датчиков", e);
         } finally {

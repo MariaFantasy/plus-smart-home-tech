@@ -41,6 +41,7 @@ public class SnapshotProcessor {
 
         } catch (WakeupException ignored) {
             // игнорируем - закрываем консьюмер и продюсер в блоке finally
+            log.info("Чтение топика {} остановлено.", kafkaProperties.getSnapshot().getTopic());
         } catch (Exception e) {
             log.error("Ошибка во время обработки событий от датчиков", e);
         } finally {

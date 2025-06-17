@@ -42,6 +42,7 @@ public class AggregationStarter {
 
         } catch (WakeupException ignored) {
             // игнорируем - закрываем консьюмер и продюсер в блоке finally
+            log.info("Чтение топика {} остановлено.", kafkaProperties.getTopic().getSensor());
         } catch (Exception e) {
             log.error("Ошибка во время обработки событий от датчиков", e);
         } finally {
