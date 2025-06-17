@@ -1,27 +1,47 @@
 package ru.yandex.practicum.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.avro.specific.SpecificRecordBase;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.KafkaProperties;
 import ru.yandex.practicum.dto.hub.HubEvent;
 import ru.yandex.practicum.dto.sensor.SensorEvent;
+import ru.yandex.practicum.grpc.telemetry.event.HubEventProto;
+import ru.yandex.practicum.grpc.telemetry.event.SensorEventProto;
 import ru.yandex.practicum.mapper.HubEventMapper;
 import ru.yandex.practicum.mapper.SensorEventMapper;
 
+@Slf4j
 @Service("collectServiceImpl")
 @RequiredArgsConstructor
 public class CollectorServiceImpl implements CollectorService {
     private final CollectorKafkaProducer kafkaProducer;
     private final SensorEventMapper sensorEventMapper;
     private final HubEventMapper hubEventMapper;
-
-    private static final String SENSOR_KAFKA_TOPIC = "telemetry.sensors.v1";
-    private static final String HUB_KAFKA_TOPIC = "telemetry.hubs.v1";
+    private final KafkaProperties kafkaProperties;
 
     public void loadSensorEvent(SensorEvent sensorEvent) {
-        kafkaProducer.send(sensorEventMapper.mapToAvro(sensorEvent), SENSOR_KAFKA_TOPIC);
+        log.info("Start sensor event save {}", sensorEvent);
+        kafkaProducer.send(sensorEventMapper.mapToAvro(sensorEvent), kafkaProperties.getTopic().getSensor());
+        log.info("Success sensor event save {}", sensorEvent);
+    }
+
+    public void loadSensorEvent(SensorEventProto sensorEvent) {
+        log.info("Start sensor event save {}", sensorEvent);
+        kafkaProducer.send(sensorEventMapper.mapToAvro(sensorEvent), kafkaProperties.getTopic().getSensor());
+        log.info("Success sensor event save {}", sensorEvent);
     }
 
     public void loadHubEvent(HubEvent hubEvent) {
-        kafkaProducer.send(hubEventMapper.mapToAvro(hubEvent), HUB_KAFKA_TOPIC);
+        log.info("Start hub event save {}", hubEvent);
+        kafkaProducer.send(hubEventMapper.mapToAvro(hubEvent), kafkaProperties.getTopic().getHub());
+        log.info("Success hub event save {}", hubEvent);
+    }
+
+    public void loadHubEvent(HubEventProto hubEvent) {
+        log.info("Start hub event save {}", hubEvent);
+        kafkaProducer.send(hubEventMapper.mapToAvro(hubEvent), kafkaProperties.getTopic().getHub());
+        log.info("Success hub event save {}", hubEvent);
     }
 }
