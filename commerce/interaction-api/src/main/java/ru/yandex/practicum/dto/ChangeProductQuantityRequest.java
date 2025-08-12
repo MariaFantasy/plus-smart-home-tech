@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @lombok.Data
 @lombok.AllArgsConstructor
-public class ChangeProductQualtityRequest {
+public class ChangeProductQuantityRequest {
     @NotNull
     private UUID productId;
 
