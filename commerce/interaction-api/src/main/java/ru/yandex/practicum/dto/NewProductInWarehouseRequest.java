@@ -15,7 +15,7 @@ public class NewProductInWarehouseRequest {
     private Boolean fragile;
 
     @NotNull
-    private DimensionDto dimensionDto;
+    private DimensionDto dimension;
 
     @NotNull
     @Min(value = 1)
