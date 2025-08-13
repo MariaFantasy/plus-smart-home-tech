@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequestMapping(path = "/api/v1/shopping-cart")
 @RequiredArgsConstructor
 public class ShoppingCartController implements ShoppingCartClient {
-    private ShoppingCartService shoppingCartService;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     public ShoppingCartDto get(String username) {
