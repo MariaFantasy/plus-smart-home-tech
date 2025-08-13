@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: shopping_cart_circuitbreaker_route
+          uri: lb://shopping-cart
+          predicates:
+            - Path=/shopping-cart/**
+          filters:
+            - CircuitBreaker=myCircuitBreaker
+
+        - id: shopping-store_circuitbreaker_route
+          uri: lb://shopping-store
+          predicates:
+            - Path=/shopping-store/**
+          filters:
+            - CircuitBreaker=myCircuitBreaker
