@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.yandex.practicum.dto.PageableDto;
 import ru.yandex.practicum.dto.ProductCategory;
 import ru.yandex.practicum.dto.ProductDto;
@@ -17,7 +18,7 @@ public interface ShoppingStoreClient {
     @GetMapping
     Page<ProductDto> getByCategory(
             @RequestParam ProductCategory category,
-            @RequestParam(required = false) PageableDto pageableDto
+            @RequestParam(required = false) Pageable pageable
             );
 
     @PutMapping
