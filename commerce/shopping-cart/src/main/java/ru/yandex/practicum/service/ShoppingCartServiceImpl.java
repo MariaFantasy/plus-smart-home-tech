@@ -37,6 +37,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         if (username == null || username.isBlank()) {
             throw new NotAuthorizedUserException("Username is empty.");
         }
+        final Optional<ShoppingCart> optionalShoppingCart = repository.findByUsername(username);
+        final ShoppingCart shoppingCartToSave = optionalShoppingCart.orElse(new ShoppingCart(null, username, true, new HashMap<>()));
+        repository.save(shoppingCartToSave);
         final ShoppingCart shoppingCart = repository.findByUsername(username).orElseThrow(
                 () -> new RuntimeException("Shopping cart for " + username + " doesn't exist.")
         );
