@@ -18,7 +18,7 @@ public interface ShoppingStoreClient {
     @GetMapping
     Page<ProductDto> getByCategory(
             @RequestParam ProductCategory category,
-            @RequestParam(required = false) Pageable pageable
+            Pageable pageable
             );
 
     @PutMapping
@@ -31,7 +31,7 @@ public interface ShoppingStoreClient {
     Boolean removeProduct(@RequestBody UUID productId);
 
     @PostMapping("/quantityState")
-    Boolean setProductQuantityState(@RequestParam @Valid SetProductQuantityStateRequest request);
+    Boolean setProductQuantityState(@Valid SetProductQuantityStateRequest request);
 
     @GetMapping("/{productId}")
     ProductDto getById(@PathVariable UUID productId);
