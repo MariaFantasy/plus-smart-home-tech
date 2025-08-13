@@ -8,7 +8,7 @@ import java.util.List;
 
 @lombok.Data
 @lombok.AllArgsConstructor
-public class Pageable {
+public class PageableDto {
     @PositiveOrZero
     private Integer page;
 

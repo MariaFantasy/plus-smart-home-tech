@@ -1,5 +1,7 @@
 package ru.yandex.practicum.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.dto.*;
@@ -8,10 +10,7 @@ import ru.yandex.practicum.mapper.ProductDtoMapper;
 import ru.yandex.practicum.model.Product;
 import ru.yandex.practicum.storage.ShoppingStoreRepository;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service("shoppingStoreServiceImpl")
 @RequiredArgsConstructor
@@ -20,11 +19,9 @@ public class ShoppingStoreServiceImpl implements ShoppingStoreService {
     private final ProductDtoMapper mapper;
 
     @Override
-    public Collection<ProductDto> getByCategory(ProductCategory category, Pageable pageable) {
-        final Collection<Product> products = repository.findByCategory(category, pageable);
-        return products.stream()
-                .map(mapper::mapToDto)
-                .collect(Collectors.toCollection(ArrayList::new));
+    public Page<ProductDto> getByCategory(ProductCategory category, Pageable pageable) {
+        final Page<Product> products = repository.findAllByProductCategory(category, pageable);
+        return products.map(mapper::mapToDto);
     }
 
     @Override
