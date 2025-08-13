@@ -15,6 +15,5 @@ public class PageableDto {
     @Positive
     private Integer size;
 
-    @NotNull
     private List<String> sort;
 }
