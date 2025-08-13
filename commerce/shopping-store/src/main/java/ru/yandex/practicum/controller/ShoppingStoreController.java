@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import ru.yandex.practicum.dto.PageableDto;
 import ru.yandex.practicum.dto.ProductCategory;
 import ru.yandex.practicum.dto.ProductDto;
 import ru.yandex.practicum.dto.SetProductQuantityStateRequest;
@@ -25,13 +24,9 @@ public class ShoppingStoreController implements ShoppingStoreClient {
     private final ShoppingStoreService shoppingStoreService;
 
     @Override
-    public Page<ProductDto> getByCategory(ProductCategory category, PageableDto pageable) {
+    public Page<ProductDto> getByCategory(ProductCategory category, Pageable pageable) {
         log.info("Пришел GET запрос с параметрами category={} и pageable={}", category, pageable);
-        final List<Sort.Order> orderList = pageable.getSort().stream()
-                .map(s -> new Sort.Order(Sort.Direction.ASC, s))
-                .toList();
-        final Pageable pageableFormat = PageRequest.of(pageable.getPage(), pageable.getSize(), Sort.by(orderList));
-        final Page<ProductDto> products = shoppingStoreService.getByCategory(category, pageableFormat);
+        final Page<ProductDto> products = shoppingStoreService.getByCategory(category, pageable);
         log.info("Отправлен ответ на GET запрос с отелом {}", products);
         return products;
     }
