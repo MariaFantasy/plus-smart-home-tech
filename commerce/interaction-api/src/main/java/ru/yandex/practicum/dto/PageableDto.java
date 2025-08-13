@@ -9,6 +9,7 @@ import java.util.List;
 
 @lombok.Data
 @lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
 public class PageableDto {
     @PositiveOrZero
     private Integer page = 0;
