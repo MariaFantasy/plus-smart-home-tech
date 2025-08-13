@@ -17,7 +17,7 @@ public interface ShoppingStoreClient {
     @GetMapping
     Page<ProductDto> getByCategory(
             @RequestParam ProductCategory category,
-            @RequestParam PageableDto pageableDto
+            @RequestParam(required = false) PageableDto pageableDto
             );
 
     @PutMapping
