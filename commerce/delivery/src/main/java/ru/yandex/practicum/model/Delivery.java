@@ -26,7 +26,7 @@ public class Delivery {
     private Address toAddress;
 
     @Column(name = "order_id")
-    private Boolean orderId;
+    private UUID orderId;
 
     @Column(name = "state")
     @Enumerated(EnumType.STRING)
