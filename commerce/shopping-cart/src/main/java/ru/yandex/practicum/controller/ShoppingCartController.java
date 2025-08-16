@@ -58,4 +58,12 @@ public class ShoppingCartController implements ShoppingCartClient {
         log.info("Отправлен ответ на POST запрос /change-quantity для пользователя {} с телом {}", username, shoppingCartDto);
         return shoppingCartDto;
     }
+
+    @Override
+    public String getUsername(UUID shoppingCartId) {
+        log.info("Пришел GET запрос /username для корзины {}", shoppingCartId);
+        final String username = shoppingCartService.getUsername(shoppingCartId);
+        log.info("Отправлен ответ на GET запрос /username с телом {}", username);
+        return username;
+    }
 }

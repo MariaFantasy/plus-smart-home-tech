@@ -110,4 +110,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         );
         return mapper.mapToDto(resultShoppingCart);
     }
+
+    @Override
+    public String getUsername(UUID shoppingCartId) {
+        final ShoppingCart shoppingCart = repository.findById(shoppingCartId).orElseThrow(
+                () -> new RuntimeException("Shopping cart " + shoppingCartId + " doesn't exist.")
+        );
+        return shoppingCart.getUsername();
+    }
 }

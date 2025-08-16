@@ -7,7 +7,6 @@ import ru.yandex.practicum.model.Product;
 
 @Mapper(componentModel = "spring")
 public interface ProductDtoMapper {
-    @Mapping(target = "id", source = "productId")
     @Mapping(target = "width", source = "productDto.dimension.width")
     @Mapping(target = "height", source = "productDto.dimension.height")
     @Mapping(target = "depth", source = "productDto.dimension.depth")

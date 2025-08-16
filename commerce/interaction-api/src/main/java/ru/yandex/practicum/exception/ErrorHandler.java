@@ -91,4 +91,61 @@ public class ErrorHandler {
         );
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNoOrderFoundException(final NoOrderFoundException e) {
+        return new ErrorResponse(
+                e.getCause(),
+                e.getStackTrace(),
+                HttpStatus.BAD_REQUEST,
+                "Не найден заказ.",
+                e.getMessage(),
+                e.getSuppressed(),
+                e.getLocalizedMessage()
+        );
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNotEnoughInfoInOrderToCalculateException(final NotEnoughInfoInOrderToCalculateException e) {
+        return new ErrorResponse(
+                e.getCause(),
+                e.getStackTrace(),
+                HttpStatus.BAD_REQUEST,
+                "Недостаточно информации в заказе для расчёта.",
+                e.getMessage(),
+                e.getSuppressed(),
+                e.getLocalizedMessage()
+        );
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleNoDeliveryFoundException(final NoDeliveryFoundException e) {
+        return new ErrorResponse(
+                e.getCause(),
+                e.getStackTrace(),
+                HttpStatus.NOT_FOUND,
+                "Не найдена доставка.",
+                e.getMessage(),
+                e.getSuppressed(),
+                e.getLocalizedMessage()
+        );
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleProductInShoppingCartNotInWarehouse(final ProductInShoppingCartNotInWarehouse e) {
+        return new ErrorResponse(
+                e.getCause(),
+                e.getStackTrace(),
+                HttpStatus.BAD_REQUEST,
+                "Ошибка, товар из корзины отсутствует в БД склада.",
+                e.getMessage(),
+                e.getSuppressed(),
+                e.getLocalizedMessage()
+        );
+    }
+
+
 }

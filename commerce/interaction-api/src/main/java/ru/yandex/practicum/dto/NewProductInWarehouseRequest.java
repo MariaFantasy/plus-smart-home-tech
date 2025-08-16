@@ -12,6 +12,7 @@ public class NewProductInWarehouseRequest {
     @NotNull
     private UUID productId;
 
+    @NotNull
     private Boolean fragile;
 
     @NotNull

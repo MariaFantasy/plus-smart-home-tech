@@ -12,11 +12,11 @@ import java.util.UUID;
 @lombok.Data
 @lombok.AllArgsConstructor
 @lombok.NoArgsConstructor
-@lombok.EqualsAndHashCode(of = { "id" })
+@lombok.EqualsAndHashCode(of = { "productId" })
 public class Product {
     @Id
     @Column(name = "product_id")
-    private UUID id;
+    private UUID productId;
 
     @Column(name = "fragile")
     private Boolean fragile;
