@@ -17,4 +17,6 @@ public interface ShoppingCartService {
     ShoppingCartDto deleteProduct(String username, List<UUID> products);
 
     ShoppingCartDto changeQuantity(String username, ChangeProductQuantityRequest request);
+
+    String getUsername(UUID shoppingCartId);
 }
