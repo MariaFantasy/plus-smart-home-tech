@@ -5,18 +5,12 @@ import ru.yandex.practicum.dto.*;
 import java.util.Map;
 import java.util.UUID;
 
-public interface WarehouseService {
-    void createNewProduct(NewProductInWarehouseRequest request);
+public interface ProductService {
+    void create(NewProductInWarehouseRequest request);
 
-    void sendOrderForDelivery(ShippedToDeliveryRequest request);
+    void add(AddProductToWarehouseRequest request);
 
-    void addReturnedProducts(Map<UUID, Long> products);
+    void reserve(UUID productId, Long quantity);
 
-    BookedProductsDto checkProductsAvailability(ShoppingCartDto shoppingCartDto);
-
-    BookedProductsDto assemblyOrderToDelivery(AssemblyProductsForOrderRequest request);
-
-    void addProducts(AddProductToWarehouseRequest request);
-
-    AddressDto getAddress();
+    BookedProductsDto checkProductsAvailability(Map<UUID, Long> products);
 }
