@@ -1,4 +1,4 @@
 package ru.yandex.practicum.service;
 
-public class WarehouseServiceImpl {
+public class OrderBookingService {
 }
